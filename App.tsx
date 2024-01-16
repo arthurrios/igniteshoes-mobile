@@ -11,6 +11,8 @@ import { CartContextProvider } from './src/contexts/CartContext';
 import { useEffect } from 'react';
 import { oneSignalInitialize } from './src/libs/oneSignal';
 import { tagUserInfoCreate } from './src/notifications/notificationsTags';
+import { OneSignal } from 'react-native-onesignal';
+import { NotificationEventTypeMap } from 'react-native-onesignal/dist/models/NotificationEvents';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -20,6 +22,15 @@ export default function App() {
     tagUserInfoCreate()
   }, [])
 
+  useEffect(() => {
+    const unsubscribe = OneSignal.Notifications.addEventListener('foregroundWillDisplay', (notificationReceivedEvent: NotificationEventTypeMap['foregroundWillDisplay']) => {
+      console.log(notificationReceivedEvent);
+      
+    })
+
+    return () => unsubscribe
+  }, [])
+  
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
