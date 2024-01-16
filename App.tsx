@@ -16,6 +16,8 @@ import { CartContextProvider } from './src/contexts/CartContext'
 import { useEffect } from 'react'
 import { oneSignalInitialize } from './src/libs/oneSignal'
 import { tagUserInfoCreate } from './src/notifications/notificationsTags'
+import { OneSignal } from 'react-native-onesignal'
+import { NotificationEventTypeMap } from 'react-native-onesignal/dist/models/NotificationEvents'
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
@@ -23,6 +25,17 @@ export default function App() {
   useEffect(() => {
     oneSignalInitialize()
     tagUserInfoCreate()
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = OneSignal.Notifications.addEventListener(
+      'click',
+      (notificationReceivedEvent: NotificationEventTypeMap['click']) => {
+        console.log('Notification has been clicked')
+      },
+    )
+
+    return () => unsubscribe
   }, [])
 
   return (
