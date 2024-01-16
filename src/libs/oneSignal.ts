@@ -1,5 +1,5 @@
-import { OneSignal } from 'react-native-onesignal';
-import { Platform } from 'react-native';
+import { OneSignal } from 'react-native-onesignal'
+import { Platform } from 'react-native'
 
 function oneSignalInitialize() {
   // const {
@@ -8,21 +8,19 @@ function oneSignalInitialize() {
   // } = process.env;
 
   const oneSignalAppId =
-    Platform.OS === 'ios'
-      ? ""
-      : "e7569ea7-1579-4a97-a126-8a9c3dbbe119";
+    Platform.OS === 'ios' ? '' : 'e7569ea7-1579-4a97-a126-8a9c3dbbe119'
 
   if (oneSignalAppId) {
-    OneSignal.initialize(oneSignalAppId);
+    OneSignal.initialize(oneSignalAppId)
   }
 
   if (Platform.OS === 'ios') {
     OneSignal.Notifications.canRequestPermission().then((response) => {
       if (response) {
-        OneSignal.Notifications.requestPermission(true);
+        OneSignal.Notifications.requestPermission(true)
       }
-    });
+    })
   }
 }
 
-export { oneSignalInitialize };
+export { oneSignalInitialize }
