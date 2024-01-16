@@ -31,10 +31,18 @@ export default function App() {
     const unsubscribe = OneSignal.Notifications.addEventListener(
       'click',
       (notificationReceivedEvent: NotificationEventTypeMap['click']) => {
-        console.log('Notification has been clicked')
+        const { actionId } = notificationReceivedEvent.result
+
+        switch (actionId) {
+          case '1':
+            return console.log('See all')
+          case '2':
+            return console.log('See request')
+          default:
+            return console.log('Action button was not clicked')
+        }
       },
     )
-
     return () => unsubscribe
   }, [])
 
