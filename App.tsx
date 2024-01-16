@@ -10,12 +10,14 @@ import { Loading } from './src/components/Loading';
 import { CartContextProvider } from './src/contexts/CartContext';
 import { useEffect } from 'react';
 import { oneSignalInitialize } from './src/libs/oneSignal';
+import { tagUserEmailCreate } from './src/notifications/notificationsTags';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
   useEffect(() => {
     oneSignalInitialize()
+    tagUserEmailCreate('arthur.rios007@gmail.com')
   }, [])
 
   return (
